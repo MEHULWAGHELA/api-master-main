@@ -77,7 +77,7 @@ class ClassApi extends PureComponent {
                                                 name="firstName"
                                                 placeholder=""
                                                 type="text"
-                                                className="main"
+                                                // className="main"
                                                 onChange={this.changedata}
                                             // value={this.state.obj.firstName ? this.state.obj.firstName : ''}
                                             />
