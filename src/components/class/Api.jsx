@@ -33,7 +33,9 @@ const Api = () => {
 
     const editFunction = (id) => {
         editobj = arr.find((x) => x._id == id)
+        obj = editobj
         seteditobj({ ...editobj })
+        setobj({ ...obj })
         updateapi()
     }
 
@@ -257,8 +259,9 @@ const Api = () => {
                     </Container>
                 </Col>
             </Row>
-            <div className="container">
-                <Table striped className="mt-5">
+            <div className="container bg-body-secondary mt-3">
+                <h2 className='text-center py-3'>Form</h2>
+                <Table className="">
                     <thead>
                         <tr>
                             <th>Sr No</th>
@@ -266,7 +269,8 @@ const Api = () => {
                             <th>LastName</th>
                             <th>Age</th>
                             <th>City</th>
-                            <th>gender</th>
+                            <th>Gender</th>
+                            <th>Hobbies</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -279,9 +283,10 @@ const Api = () => {
                                 <td>{x.age}</td>
                                 <td>{x.city}</td>
                                 <td>{x.gender}</td>
+                                <td>{x.hobbies}</td>
                                 <td>
-                                    <button onClick={() => deleteapi(x._id)}>Delete</button>
-                                    <button onClick={() => editFunction(x._id)}>Edit</button>
+                                    <button onClick={() => deleteapi(x._id)} className='me-2 btn text-bg-danger'>Delete</button>
+                                    <button onClick={() => editFunction(x._id)} className='btn text-bg-warning'>Edit</button>
                                 </td>
                             </tr>
                         })}
