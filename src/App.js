@@ -1,11 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import Api from './components/class/Api';
+import Api from './components/function/Api';
+import ClassApi from './components/class/ClassApi';
 
 function App() {
   return (
     <div>
-      <Api />
+      {/* <Api /> */}
+      <ClassApi />
     </div>
   );
 }
