@@ -79,7 +79,7 @@ class ClassApi extends PureComponent {
                                                 type="text"
                                                 className="main"
                                                 onChange={this.changedata}
-                                                value={this.state.obj.firstName ? this.state.obj.firstName : ''}
+                                            // value={this.state.obj.firstName ? this.state.obj.firstName : ''}
                                             />
                                         </FormGroup>
                                     </Col>
@@ -95,8 +95,7 @@ class ClassApi extends PureComponent {
                                                 type="text"
                                                 className="main"
                                                 onChange={this.changedata}
-                                                value={this.state.obj.lastName ? this.state.obj.lastName : ''}
-
+                                            // value={this.state.obj.lastName ? this.state.obj.lastName : ''}
                                             />
                                         </FormGroup>
                                     </Col>
@@ -111,9 +110,8 @@ class ClassApi extends PureComponent {
                                                 placeholder=""
                                                 type="number"
                                                 className="main"
+                                                // value={this.state.obj.age ? this.state.obj.age : ''}
                                                 onChange={this.changedata}
-                                                value={this.state.obj.age ? this.state.obj.age : ''}
-
                                             />
                                         </FormGroup>
                                     </Col>
@@ -123,7 +121,7 @@ class ClassApi extends PureComponent {
                                                 City
                                             </Label>
                                             <select onChange={this.changedata}
-                                                value={this.state.obj.city ? this.state.obj.city : ''}
+                                                // value={this.state.obj.city ? this.state.obj.city : ''}
                                                 name="city" className="form-select">
                                                 <option value="surat">Surat</option>
                                                 <option value="bharuch">Bharuch</option>
@@ -144,7 +142,7 @@ class ClassApi extends PureComponent {
                                                     className="gender me-2"
                                                     onChange={this.changedata}
                                                     value="Male"
-                                                    checked={this.state.obj.gender == "Male"}
+                                                    checked={this.state.obj.gender?.includes("Male")}
                                                 />
                                                 <Label
                                                     check
@@ -162,7 +160,7 @@ class ClassApi extends PureComponent {
                                                     className="gender me-2"
                                                     onChange={this.changedata}
                                                     value="Female"
-                                                    checked={this.state.obj.gender == "Female"}
+                                                    checked={this.state.obj.gender?.includes("Female")}
                                                 />
                                                 <Label
                                                     check
