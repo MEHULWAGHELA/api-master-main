@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Col, Container, Form, FormGroup, Input, Label, Row, Table } from 'reactstrap'
 const Api = () => {
@@ -86,7 +86,7 @@ const Api = () => {
     }, [])
 
     const changeData = (e) => {
-        if (e.target.name == "hobbies") {
+        if (e.target.name === "hobbies") {
             if (e.target.checked) {
                 obj.hobbies = [...obj.hobbies, e.target.value]
             }
@@ -102,7 +102,7 @@ const Api = () => {
 
     const submitFunction = (e) => {
         e.preventDefault();
-        if (obj._id == undefined) {
+        if (obj._id === undefined) {
             setData()
         }
         else {
@@ -194,7 +194,7 @@ const Api = () => {
                                                 className="gender me-2"
                                                 onChange={changeData}
                                                 value="Male"
-                                                checked={obj.gender == "Male" || obj.gender == "male"}
+                                                checked={obj.gender === "Male" || obj.gender === "male"}
                                             />
                                             <Label
                                                 check
@@ -212,7 +212,7 @@ const Api = () => {
                                                 className="gender me-2"
                                                 onChange={changeData}
                                                 value="Female"
-                                                checked={obj.gender == "Female" || obj.gender == "female"}
+                                                checked={obj.gender === "Female" || obj.gender === "female"}
                                             />
 
                                             <Label
