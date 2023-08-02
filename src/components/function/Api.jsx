@@ -32,17 +32,17 @@ const Api = () => {
     }
 
     const editFunction = (id) => {
-        editobj = arr.find((x) => x._id == id)
-        obj = editobj
-        seteditobj({ ...editobj })
-        setobj({ ...obj })
-        updateapi()
+        axios.get("https://student-api.mycodelibraries.com/api/student/get-student-by-id?id=" + id).then((res) => {
+            obj = res.data.data
+            setobj({ ...obj })
+            console.log(obj)
+        }).catch((err) => { console.log(err) })
     }
 
     const updateapi = () => {
-        axios.post("https://student-api.mycodelibraries.com/api/student/update", editobj).then((res) => {
-            console.log(res)
-        }).catch((err) => console.log(err))
+        console.log(obj)
+        obj.id = obj._id
+        axios.post('https://student-api.mycodelibraries.com/api/student/update', obj).then((res) => getData()).catch((err) => console.log(err))
     }
 
     useEffect(() => {
@@ -66,7 +66,12 @@ const Api = () => {
 
     const submitFunction = (e) => {
         e.preventDefault();
-        setData()
+        if (obj._id == undefined) {
+            setData()
+        }
+        else {
+            updateapi()
+        }
         obj = { hobbies: '' }
         setobj({ ...obj })
     }
@@ -153,7 +158,7 @@ const Api = () => {
                                                 className="gender me-2"
                                                 onChange={changeData}
                                                 value="Male"
-                                                checked={obj.gender == "Male"}
+                                                checked={obj.gender == "Male" || obj.gender == "male"}
                                             />
                                             <Label
                                                 check
@@ -171,8 +176,9 @@ const Api = () => {
                                                 className="gender me-2"
                                                 onChange={changeData}
                                                 value="Female"
-                                                checked={obj.gender == "Female"}
+                                                checked={obj.gender == "Female" || obj.gender == "female"}
                                             />
+
                                             <Label
                                                 check
                                                 for="radio"
