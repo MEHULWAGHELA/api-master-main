@@ -6,8 +6,8 @@ import ClassApi from './components/class/ClassApi';
 function App() {
   return (
     <div>
-      <Api />
-      {/* <ClassApi /> */}
+      {/* <Api /> */}
+      <ClassApi />
     </div>
   );
 }
