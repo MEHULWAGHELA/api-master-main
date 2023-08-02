@@ -2,10 +2,47 @@ import React, { Fragment, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Col, Container, Form, FormGroup, Input, Label, Row, Table } from 'reactstrap'
 const Api = () => {
-    let [id, setid] = useState([])
     let [arr, setarr] = useState([])
     let [obj, setobj] = useState({ hobbies: '' })
-    let [editobj, seteditobj] = useState({})
+    /* api methods are different type. Which is created by backend developer
+    Mostly 4 to 5 api method available
+    1=>getapi
+    2=>getapi by id
+    3=>post api
+    4=>delete api 
+    5=>update api
+    
+    1=>getapi 
+        in this api we have link which we put in axios.get('url').then((res)=> res) in response all data we get in res. if error occur then it is show in catch. if api get run then it is show in inspect network in fetch/xhr show 
+        headers=>in which status code show. if 200 means run successfully if we write wrong anythingthen 404 not found. 
+                    that type of different status code available for network.
+        response=>in response we get data from api
+        payload=> in payload we see query which we pass for get data like id we pass for data find
+        preview=> in preview status preview
+        
+    2=>getapi by id in we have pass url with query means id or anything by which api find data from database and get data
+    url=>https://student-api.mycodelibraries.com/api/student/get-student-by-id?id=anyid  like this
+
+    3=>post api=>we have to pass obj which we want to set data in database
+    4=>in delete api url is connect with query which we want to delete quer yis any possible id or any key firstName lastName
+    url=>https://student-api.mycodelibraries.com/api/student/delete?id=64ca1518378d0635bc1001fc
+    5=>update api we have to pass new obj which we want to replace with existing for that 
+    that new obj pass with same id which is previous one
+    and for that formate given like in this api we have to pass obj id like this 
+            obj.id  not like this obj._id    
+
+            sample object pass given in api
+                            {
+                "firstName": "Shaikhs",
+                "lastName": "Irshad",
+                "age": 1,
+                "hobbies": "Reading,Exersice",
+                "gender": "Male",
+                "city": "Surat",
+                "id": "612a05e155c2d838a4c62e5f"
+                }
+        */
+
     const setData = () => {
         axios.post('https://student-api.mycodelibraries.com/api/student/add', obj)
             .then((res) => {
@@ -34,13 +71,12 @@ const Api = () => {
     const editFunction = (id) => {
         axios.get("https://student-api.mycodelibraries.com/api/student/get-student-by-id?id=" + id).then((res) => {
             obj = res.data.data
+            obj.hobbies = obj.hobbies.split(",")
             setobj({ ...obj })
-            console.log(obj)
         }).catch((err) => { console.log(err) })
     }
 
     const updateapi = () => {
-        console.log(obj)
         obj.id = obj._id
         axios.post('https://student-api.mycodelibraries.com/api/student/update', obj).then((res) => getData()).catch((err) => console.log(err))
     }
