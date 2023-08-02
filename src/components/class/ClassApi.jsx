@@ -30,7 +30,6 @@ class ClassApi extends PureComponent {
     }
     save = (e) => {
         e.preventDefault()
-        console.log(this.state.obj)
         if (this.state.obj._id == undefined) {
             this.postapi()
         }
@@ -38,6 +37,8 @@ class ClassApi extends PureComponent {
             console.log("updateapi")
             this.updateapi()
         }
+        this.setState({ obj: {} })
+
     }
     changedata = (e) => {
         if (e.target.name == "hobbies") {
