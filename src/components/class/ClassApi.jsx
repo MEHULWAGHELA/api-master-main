@@ -5,7 +5,7 @@ class ClassApi extends PureComponent {
     constructor() {
         super()
         this.state = {
-            obj: { hobbies: [] },
+            obj: { hobbies: [], firstName: '', lastName: '', gender: '', age: '', city: '' },
             arr: []
         }
     }
@@ -23,13 +23,19 @@ class ClassApi extends PureComponent {
             )
             .catch((error) => console.log(error))
     }
-    static getDerivedStateFromProps() {
-        // this.getapi()
-        return null
+    componentDidMount() {
+        this.getapi()
     }
     save = (e) => {
         e.preventDefault()
-        this.postapi()
+        console.log(this.state.obj)
+        if (this.state.obj._id == undefined) {
+            this.postapi()
+        }
+        else {
+            console.log("updateapi")
+            this.updateapi()
+        }
     }
     changedata = (e) => {
         if (e.target.name == "hobbies") {
@@ -54,13 +60,22 @@ class ClassApi extends PureComponent {
             )
             .catch((error) => console.log(error))
     }
-    editFunction = () => {
-
+    updateapi = () => {
+        console.log(this.state.obj)
+        this.state.obj.id = this.state.obj._id
+        axios.post('https://student-api.mycodelibraries.com/api/student/update', this.state.obj).then((res) => this.getapi()).catch((err) => console.log(err))
+    }
+    editFunction = (id) => {
+        axios.get('https://student-api.mycodelibraries.com/api/student/get-student-by-id?id=' + id)
+            .then((res) => {
+                this.setState({ obj: { ...res.data.data } }, () => {
+                })
+            })
+            .catch((err) => console.log(err))
     }
     render() {
         return (
             <Fragment>
-                {console.log(this.state.arr)}
                 <Row>
                     <Col xs={6} className="offset-3">
                         <Container className="mt-1 py-1 px-4 border border-1 border-black rounded-2 shadow-lg">
@@ -77,9 +92,9 @@ class ClassApi extends PureComponent {
                                                 name="firstName"
                                                 placeholder=""
                                                 type="text"
-                                                // className="main"
+                                                className="main"
                                                 onChange={this.changedata}
-                                            // value={this.state.obj.firstName ? this.state.obj.firstName : ''}
+                                                value={this.state.obj?.firstName || ''}
                                             />
                                         </FormGroup>
                                     </Col>
@@ -95,7 +110,7 @@ class ClassApi extends PureComponent {
                                                 type="text"
                                                 className="main"
                                                 onChange={this.changedata}
-                                            // value={this.state.obj.lastName ? this.state.obj.lastName : ''}
+                                                value={this.state.obj.lastName ? this.state.obj.lastName : ''}
                                             />
                                         </FormGroup>
                                     </Col>
@@ -110,7 +125,7 @@ class ClassApi extends PureComponent {
                                                 placeholder=""
                                                 type="number"
                                                 className="main"
-                                                // value={this.state.obj.age ? this.state.obj.age : ''}
+                                                value={this.state.obj.age ? this.state.obj.age : ''}
                                                 onChange={this.changedata}
                                             />
                                         </FormGroup>
@@ -121,7 +136,7 @@ class ClassApi extends PureComponent {
                                                 City
                                             </Label>
                                             <select onChange={this.changedata}
-                                                // value={this.state.obj.city ? this.state.obj.city : ''}
+                                                value={this.state.obj.city ? this.state.obj.city : ''}
                                                 name="city" className="form-select">
                                                 <option value="surat">Surat</option>
                                                 <option value="bharuch">Bharuch</option>
@@ -189,7 +204,7 @@ class ClassApi extends PureComponent {
                                                     className="language me-2"
                                                     onChange={this.changedata}
                                                     value="Travelling"
-                                                // checked={this.state.obj.hobbies?.includes('Travelling')}
+                                                    checked={this.state.obj.hobbies?.includes('Travelling')}
                                                 />
                                                 <Label
                                                     check
@@ -207,7 +222,7 @@ class ClassApi extends PureComponent {
                                                     className="language me-2"
                                                     onChange={this.changedata}
                                                     value="Reading"
-                                                // checked={this.state.obj.hobbies?.includes('Reading')}
+                                                    checked={this.state.obj.hobbies?.includes('Reading')}
                                                 />
                                                 <Label
                                                     check
@@ -225,7 +240,7 @@ class ClassApi extends PureComponent {
                                                     className="language me-2"
                                                     onChange={this.changedata}
                                                     value="Exersice"
-                                                // checked={this.state.obj.hobbies?.includes('Exersice')}
+                                                    checked={this.state.obj.hobbies?.includes('Exersice')}
                                                 />
                                                 <Label
                                                     check
@@ -281,7 +296,6 @@ class ClassApi extends PureComponent {
                         </tbody>
                     </Table>
                 </div>
-                <button onClick={this.getapi}>Click</button>
             </Fragment>
         )
     }
