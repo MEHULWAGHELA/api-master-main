@@ -62,7 +62,7 @@ class ClassApi extends PureComponent {
         else {
             this.state.obj[e.target.name] = e.target.value;
         }
-        this.setState({ obj: this.state.obj })
+        this.setState({ obj: { ...this.state.obj } })
 
     }
     deleteapi = (id) => {
@@ -81,10 +81,8 @@ class ClassApi extends PureComponent {
     editFunction = (id) => {
         axios.get('https://student-api.mycodelibraries.com/api/student/get-student-by-id?id=' + id)
             .then((res) => {
-                this.state.obj = res.data.data
-                console.log(this.state.obj)
-                this.state.obj.hobbies.split(',')
-                this.setState({ obj: { ...this.state.obj } })
+                res.data.data.hobbies = res.data.data.hobbies.split(',')
+                this.setState({ obj: { ...res.data.data } })
             })
             .catch((err) => console.log(err))
     }
@@ -109,7 +107,7 @@ class ClassApi extends PureComponent {
                                                 type="text"
                                                 className="main"
                                                 onChange={this.changedata}
-                                                value={this.state.obj.firstName ? this.state.obj.firstName : null}
+                                                value={this.state.obj.firstName ?? ""}
                                             />
 
                                         </FormGroup>
@@ -126,7 +124,7 @@ class ClassApi extends PureComponent {
                                                 type="text"
                                                 className="main"
                                                 onChange={this.changedata}
-                                                value={this.state.obj.lastName ? this.state.obj.lastName : null}
+                                                value={this.state.obj.lastName ?? ''}
                                             />
                                         </FormGroup>
                                     </Col>
@@ -141,7 +139,7 @@ class ClassApi extends PureComponent {
                                                 placeholder="Age"
                                                 type="number"
                                                 className="main"
-                                                value={this.state.obj.age ? this.state.obj.age : null}
+                                                value={this.state.obj.age ?? ''}
                                                 onChange={this.changedata}
                                             />
                                         </FormGroup>
@@ -152,7 +150,7 @@ class ClassApi extends PureComponent {
                                                 City
                                             </Label>
                                             <select onChange={this.changedata}
-                                                value={this.state.obj.city ? this.state.obj.city : null}
+                                                value={this.state.obj.city ?? ''}
                                                 name="city" className="form-select">
                                                 <option value="surat">Surat</option>
                                                 <option value="bharuch">Bharuch</option>
